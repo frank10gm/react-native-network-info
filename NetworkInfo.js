@@ -1,6 +1,6 @@
 "use strict";
 
-import { NativeModules, Platform } from "react-native";
+import { NativeModules, Platform, NativeEventEmitter } from "react-native";
 const { RNNetworkInfo } = NativeModules;
 
 const NetworkInfo = {
@@ -45,7 +45,12 @@ const NetworkInfo = {
   },
 
   async getHosts() {
-    return RNNetworkInfo.getHosts();
+    return await RNNetworkInfo.getHosts();
+  },
+
+  listenHosts() {
+    const eventEmitter = new NativeEventEmitter(RNNetworkInfo);
+    return eventEmitter;
   },
 };
 

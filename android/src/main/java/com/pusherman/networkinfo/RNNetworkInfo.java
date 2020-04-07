@@ -12,6 +12,7 @@ import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -28,12 +29,14 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
     WifiManager wifi;
 
     public static final String TAG = "RNNetworkInfo";
+    private ReactApplicationContext mcontext;
 
     public static List<String> DSLITE_LIST = Arrays.asList("192.0.0.0", "192.0.0.1", "192.0.0.2", "192.0.0.3",
             "192.0.0.4", "192.0.0.5", "192.0.0.6", "192.0.0.7");
 
     public RNNetworkInfo(ReactApplicationContext reactContext) {
         super(reactContext);
+        mcontext = reactContext;
 
         wifi = (WifiManager) reactContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
     }
@@ -293,6 +296,14 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
         return addresses;
     }
 
+    private void sendEvent(
+                    String eventName,
+                    String params) {
+    mcontext
+        .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+        .emit(eventName, params);
+    }
+
     @ReactMethod
     public void getHosts(final Promise promise) throws Exception {
         new Thread(new Runnable() {
@@ -317,10 +328,14 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
 
                         if (reachable) {
                             Log.i(TAG, "{\"host\": \"" + String.valueOf(hostName) + "\", \"ip\": \"" + String.valueOf(testIp) + "\"}");
-                            promise.resolve("{\"host\": \"" + String.valueOf(hostName) + "\", \"ip\": \"" + String.valueOf(testIp) + "\"}");
+                            // promise.resolve("{\"host\": \"" + String.valueOf(hostName) + "\", \"ip\": \"" + String.valueOf(testIp) + "\"}");
+                            sendEvent("host", "{\"host\": \"" + String.valueOf(hostName) + "\", \"ip\": \"" + String.valueOf(testIp) + "\"}");
                         }
                     }
+                    promise.resolve('OK');
+
                 } catch (Exception e) {
+                    Log.e(TAG, e.toString());
                     promise.resolve(null);
                 }
 
