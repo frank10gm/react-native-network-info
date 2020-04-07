@@ -312,12 +312,11 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
                         String testIp = prefix + String.valueOf(i);
 
                         InetAddress address = InetAddress.getByName(testIp);
-                        boolean reachable = address.isReachable(1000);
+                        boolean reachable = address.isReachable(300);
                         String hostName = address.getCanonicalHostName();
 
                         if (reachable) {
-                            Log.i(TAG, "Host: " + String.valueOf(hostName) + "(" + String.valueOf(testIp)
-                                    + ") is reachable!");
+                            Log.i(TAG, "{\"host\": \"" + String.valueOf(hostName) + "\", \"ip\": \"" + String.valueOf(testIp) + "\"}");
                             promise.resolve("{\"host\": \"" + String.valueOf(hostName) + "\", \"ip\": \"" + String.valueOf(testIp) + "\"}");
                         }
                     }

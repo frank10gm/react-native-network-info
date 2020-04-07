@@ -45,7 +45,7 @@ const NetworkInfo = {
   },
 
   async getHosts() {
-    return await RNNetworkInfo.getHosts();
+    return RNNetworkInfo.getHosts();
   },
 };
 
