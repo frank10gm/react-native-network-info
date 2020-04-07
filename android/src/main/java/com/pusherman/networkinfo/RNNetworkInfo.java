@@ -302,7 +302,8 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
 
                     WifiInfo info = wifi.getConnectionInfo();
                     int ipAddress = info.getIpAddress();
-                    String ipString = Formatter.formatIpAddress(ipAddress);
+                    String ipString = String.format("%d.%d.%d.%d", (ipAddress & 0xff), (ipAddress >> 8 & 0xff),
+                    (ipAddress >> 16 & 0xff), (ipAddress >> 24 & 0xff));
 
                     String prefix = ipString.substring(0, ipString.lastIndexOf(".") + 1);
                     Log.d(TAG, "prefix: " + prefix);
