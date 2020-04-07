@@ -1,3 +1,5 @@
+import { NativeEventEmitter } from "react-native";
+
 export namespace NetworkInfo {
   function getSSID(): Promise<string | null>;
   function getBSSID(): Promise<string | null>;
@@ -8,5 +10,5 @@ export namespace NetworkInfo {
   function getGatewayIPAddress(): Promise<string | null>;
   function getFrequency(): Promise<number | null>;
   function getHosts(): Promise<any | null>;
-  function listenHosts(cb?: any): any;
+  function listenHosts(cb?: any): NativeEventEmitter;
 }
