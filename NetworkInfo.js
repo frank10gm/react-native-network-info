@@ -48,7 +48,7 @@ const NetworkInfo = {
     return await RNNetworkInfo.getHosts();
   },
 
-  listenHosts() {
+  listenHosts(cb) {
     const eventEmitter = new NativeEventEmitter(RNNetworkInfo);
     return eventEmitter;
   },

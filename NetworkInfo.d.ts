@@ -8,5 +8,5 @@ export namespace NetworkInfo {
   function getGatewayIPAddress(): Promise<string | null>;
   function getFrequency(): Promise<number | null>;
   function getHosts(): Promise<any | null>;
-  function listenHosts(): any;
+  function listenHosts(cb?: any): any;
 }
