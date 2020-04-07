@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Formatter;
 import java.net.Inet6Address;
 
 public class RNNetworkInfo extends ReactContextBaseJavaModule {
@@ -297,18 +298,27 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    String ipAddress = null;
-                    String tmp = "0.0.0.0";
+                    String result = null;
 
-                    for (InterfaceAddress address : getInetAddresses()) {
-                        if (!address.getAddress().isLoopbackAddress() && address.getAddress() instanceof Inet4Address) {
-                            tmp = address.getAddress().getHostAddress().toString();
-                            if (!inDSLITERange(tmp)) {
-                                ipAddress = tmp;
-                            }
-                        }
+                    WifiInfo info = wifi.getConnectionInfo();
+                    int ipAddress = info.getIpAddress();
+                    String ipString = Formatter.formatIpAddress(ipAddress);
+
+                    String prefix = ipString.substring(0, ipString.lastIndexOf(".") + 1);
+                    Log.d(TAG, "prefix: " + prefix);
+
+                    for (int i = 0; i < 255; i++) {
+                        String testIp = prefix + String.valueOf(i);
+
+                        InetAddress address = InetAddress.getByName(testIp);
+                        boolean reachable = address.isReachable(1000);
+                        String hostName = address.getCanonicalHostName();
+
+                        if (reachable)
+                            Log.i(TAG, "Host: " + String.valueOf(hostName) + "(" + String.valueOf(testIp) + ") is reachable!");
                     }
-                    promise.resolve(ipAddress);
+
+                    promise.resolve(result);
                 } catch (Exception e) {
                     promise.resolve(null);
                 }
