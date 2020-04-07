@@ -11,7 +11,7 @@ Version 2+ requires RN 0.40 - RN 0.46
 
 ```javascript
 npm install --save frank10gm/react-native-network-info#master
-npm uninstall --save frank10gm/react-native-network-info#master
+npm uninstall --save react-native-network-info
 ```
 
 or
