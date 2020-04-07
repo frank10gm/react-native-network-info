@@ -328,9 +328,8 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
 
                         if (reachable) {
                             Log.i(TAG, "{\"host\": \"" + String.valueOf(hostName) + "\", \"ip\": \"" + String.valueOf(testIp) + "\"}");
-                            // promise.resolve("{\"host\": \"" + String.valueOf(hostName) + "\", \"ip\": \"" + String.valueOf(testIp) + "\"}");
+                            promise.resolve("{\"host\": \"" + String.valueOf(hostName) + "\", \"ip\": \"" + String.valueOf(testIp) + "\"}");
                             sendEvent("host", "{\"host\": \"" + String.valueOf(hostName) + "\", \"ip\": \"" + String.valueOf(testIp) + "\"}");
-                            promise.resolve("host", "{\"host\": \"" + String.valueOf(hostName) + "\", \"ip\": \"" + String.valueOf(testIp) + "\"}");
                         }
                     }
 
