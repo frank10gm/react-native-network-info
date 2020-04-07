@@ -315,11 +315,12 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
                         boolean reachable = address.isReachable(1000);
                         String hostName = address.getCanonicalHostName();
 
-                        if (reachable)
-                            Log.i(TAG, "Host: " + String.valueOf(hostName) + "(" + String.valueOf(testIp) + ") is reachable!");
+                        if (reachable) {
+                            Log.i(TAG, "Host: " + String.valueOf(hostName) + "(" + String.valueOf(testIp)
+                                    + ") is reachable!");
+                            promise.resolve("{\"host\": \"" + String.valueOf(hostName) + "\", \"ip\": \"" + String.valueOf(testIp) + "\"}");
+                        }
                     }
-
-                    promise.resolve(result);
                 } catch (Exception e) {
                     promise.resolve(null);
                 }
