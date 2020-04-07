@@ -10,7 +10,8 @@ Version 2+ requires RN 0.40 - RN 0.46
 ## Installation
 
 ```javascript
-npm install react-native-network-info --save
+npm install --save frank10gm/react-native-network-info#master
+npm uninstall --save frank10gm/react-native-network-info#master
 ```
 
 or
@@ -27,54 +28,54 @@ Linking the package manually is not required anymore with Autolinking.
 
 #### `iOS` also requires CocoaPods install
 
-$ `cd ios && pod install && cd ..`
+\$ `cd ios && pod install && cd ..`
 
 #### Using React Native < 0.60
 
-$ `react-native link react-native-network-info`
+\$ `react-native link react-native-network-info`
 
 ## Usage
 
 ```javascript
-import {NetworkInfo} from 'react-native-network-info';
+import { NetworkInfo } from "react-native-network-info";
 
 // Get Local IP
-NetworkInfo.getIPAddress().then(ipAddress => {
+NetworkInfo.getIPAddress().then((ipAddress) => {
   console.log(ipAddress);
 });
 
 // Get IPv4 IP (priority: WiFi first, cellular second)
-NetworkInfo.getIPV4Address().then(ipv4Address => {
+NetworkInfo.getIPV4Address().then((ipv4Address) => {
   console.log(ipv4Address);
 });
 
 // Get Broadcast
-NetworkInfo.getBroadcast().then(broadcast => {
+NetworkInfo.getBroadcast().then((broadcast) => {
   console.log(broadcast);
 });
 
 // Get SSID
-NetworkInfo.getSSID().then(ssid => {
+NetworkInfo.getSSID().then((ssid) => {
   console.log(ssid);
 });
 
 // Get BSSID
-NetworkInfo.getBSSID().then(bssid => {
+NetworkInfo.getBSSID().then((bssid) => {
   console.log(bssid);
 });
 
 // Get Subnet
-NetworkInfo.getSubnet().then(subnet => {
+NetworkInfo.getSubnet().then((subnet) => {
   console.log(subnet);
 });
 
 // Get Default Gateway IP
-NetworkInfo.getGatewayIPAddress().then(defaultGateway => {
+NetworkInfo.getGatewayIPAddress().then((defaultGateway) => {
   console.log(defaultGateway);
 });
 
 // Get frequency (supported only for Android)
-NetworkInfo.getFrequency().then(frequency => {
+NetworkInfo.getFrequency().then((frequency) => {
   console.log(frequency);
 });
 ```

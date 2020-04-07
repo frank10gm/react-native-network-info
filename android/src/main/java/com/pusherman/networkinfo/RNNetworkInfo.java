@@ -291,4 +291,29 @@ public class RNNetworkInfo extends ReactContextBaseJavaModule {
         }
         return addresses;
     }
+
+    @ReactMethod
+    public void getHosts(final Promise promise) throws Exception {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String ipAddress = null;
+                    String tmp = "0.0.0.0";
+
+                    for (InterfaceAddress address : getInetAddresses()) {
+                        if (!address.getAddress().isLoopbackAddress() && address.getAddress() instanceof Inet4Address) {
+                            tmp = address.getAddress().getHostAddress().toString();
+                            if (!inDSLITERange(tmp)) {
+                                ipAddress = tmp;
+                            }
+                        }
+                    }
+                    promise.resolve(ipAddress);
+                } catch (Exception e) {
+                    promise.resolve(null);
+                }
+
+            }
+        }).start();
+    }
 }

@@ -22,10 +22,10 @@ const NetworkInfo = {
 
   async getIPV4Address() {
     const wifiIP = await RNNetworkInfo.getWIFIIPV4Address();
-    if (wifiIP && wifiIP !== '0.0.0.0') {
+    if (wifiIP && wifiIP !== "0.0.0.0") {
       return wifiIP;
     }
-    
+
     return await RNNetworkInfo.getIPV4Address();
   },
 
@@ -38,11 +38,15 @@ const NetworkInfo = {
   },
 
   async getFrequency() {
-    if (Platform.OS !== 'android') {
+    if (Platform.OS !== "android") {
       return null;
     }
     return await RNNetworkInfo.getFrequency();
-  }
+  },
+
+  async getHosts() {
+    return await RNNetworkInfo.getHosts();
+  },
 };
 
 module.exports = { NetworkInfo };

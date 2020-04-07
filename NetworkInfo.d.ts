@@ -7,4 +7,5 @@ export namespace NetworkInfo {
   function getSubnet(): Promise<string | null>;
   function getGatewayIPAddress(): Promise<string | null>;
   function getFrequency(): Promise<number | null>;
+  function getHosts(): Promise<any | null>;
 }
